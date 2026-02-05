@@ -1,0 +1,31 @@
+services:
+
+  ioc_default_name:
+
+    extends:
+      service: linux_ioc
+      file: ../../include/ioc.yml
+
+    image: replace_with_image_uri
+
+    labels:
+      version: 0.1.0
+
+    environment:
+      IOCSH_PS1: ioc_default_name >
+      IOC_NAME: ioc_default_name
+
+    volumes:
+      - ../../opi/auto-generated/ioc_default_name:/epics/opi
+
+    configs:
+      - source: ioc_default_name_config
+        target: epics/ioc/config
+
+configs:
+  ioc_default_name_config:
+    file: ./config
+
+include:
+  - path:
+      ../../include/networks.yml

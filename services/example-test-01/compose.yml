@@ -1,0 +1,32 @@
+services:
+
+  example-test-01:
+    container_name: example-test-01
+
+    extends:
+      service: linux_ioc
+      file: ../../include/ioc.yml
+
+    image: ghcr.io/epics-containers/ioc-template-example-runtime:3.5.1
+
+    labels:
+      version: 0.1.0
+
+    environment:
+      IOCSH_PS1: example-test-01 >
+      IOC_NAME: example-test-01
+
+    volumes:
+      - ../../opi/auto-generated/example-test-01:/epics/opi
+
+    configs:
+      - source: example-test-01_config
+        target: epics/ioc/config
+
+configs:
+  example-test-01_config:
+    file: ./config
+
+include:
+  - path:
+      ../../include/networks.yml
