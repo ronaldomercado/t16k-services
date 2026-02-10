@@ -1,0 +1,31 @@
+services:
+
+  ts99i-cs-ioc-03:
+
+    extends:
+      service: linux_ioc
+      file: ../../include/ioc.yml
+
+    image: ghcr.io/epics-containers/ioc-pmac-runtime:2025.9.2
+
+    labels:
+      version: 0.1.0
+
+    environment:
+      IOCSH_PS1: ts99i-cs-ioc-03 >
+      IOC_NAME: ts99i-cs-ioc-03
+
+    volumes:
+      - ../../opi/auto-generated/ts99i-cs-ioc-03:/epics/opi
+
+    configs:
+      - source: ts99i-cs-ioc-03_config
+        target: epics/ioc/config
+
+configs:
+  ts99i-cs-ioc-03_config:
+    file: ./config
+
+include:
+  - path:
+      ../../include/networks.yml

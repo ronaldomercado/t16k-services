@@ -1,0 +1,186 @@
+# Macros:
+#  name  Template argument
+# file $(INSERTIONDEVICE)/db/ID_simulated-id_gui.template
+# {
+# pattern { name }
+#     { "ts99-cs3-gui" }
+# }
+
+# Macros:
+#  IOC  Device prefix
+file $(DEVIOCSTATS)/db/iocAdminSoft.db
+{
+pattern { IOC }
+    { "TS99I-CS-IOC-02" }
+}
+
+# Macros:
+#  IOC  Device prefix
+file $(DEVIOCSTATS)/db/iocAdminScanMon.db
+{
+pattern { IOC }
+    { "TS99I-CS-IOC-02" }
+}
+
+# Macros:
+#  name      name for gui elements
+#  EDM_FILE  edm screen, defaults to ioc_stats_softdls.edl
+#  IOC       ioc name
+file $(DEVIOCSTATS)/db/iocGui.db
+{
+pattern { name, EDM_FILE, IOC }
+    { "TS99I.CS2", "ioc_stats_softdls.edl", "TS99I-CS-IOC-02" }
+}
+
+# Macros:
+#  PORT      The asyn port for the pmac controller
+#  P         PV Prefix
+#  NAXES     Number of axes
+#  TIMEOUT   Timeout for controller communication
+#  FEEDRATE  feedrate below which we go into error
+#  CSG0      Name for Coordinate System Group 0
+#  CSG1      Name for Coordinate System Group 1
+#  CSG2      Name for Coordinate System Group 2
+#  CSG3      Name for Coordinate System Group 3
+#  CSG4      Name for Coordinate System Group 4
+#  CSG5      Name for Coordinate System Group 5
+#  CSG6      Name for Coordinate System Group 6
+#  CSG7      Name for Coordinate System Group 7
+file $(PMAC)/db/pmacController.template
+{
+pattern { PORT, P, NAXES, TIMEOUT, FEEDRATE, CSG0, CSG1, CSG2, CSG3, CSG4, CSG5, CSG6, CSG7 }
+    { "pwbrick", "TS99I-MO-PPMAC-01", "8", "4", "100", "", "", "", "", "", "", "", "" }
+}
+
+# Macros:
+#  PORT  The asyn port for the pmac controller
+#  P     PV Prefix
+file $(PMAC)/db/powerPmacStatus.template
+{
+pattern { PORT, P }
+    { "pwbrick", "TS99I-MO-PPMAC-01" }
+}
+
+# Macros:
+#  PMAC  Pmac/Geobrick name
+#  AXIS  Axis number
+#  PORT  Asyn port
+file $(PMAC)/db/pmacStatusAxis.template
+{
+pattern { PMAC, AXIS, PORT }
+    { "TS99I-MO-PPMAC-01", "1", "pwbrick" }
+    { "TS99I-MO-PPMAC-01", "2", "pwbrick" }
+    { "TS99I-MO-PPMAC-01", "3", "pwbrick" }
+    { "TS99I-MO-PPMAC-01", "4", "pwbrick" }
+}
+
+# Macros:
+#  P                Device Prefix
+#  M                Device Suffix
+#  PORT             Delta tau motor controller
+#  ADDR             Address on controller
+#  DESC             Description, displayed on EDM screen
+#  MRES             Motor Step Size (EGU)
+#  VELO             Velocity (EGU/s)
+#  PREC             Display Precision
+#  EGU              Engineering Units
+#  TWV              Tweak Step Size (EGU)
+#  DTYP             DTYP of record
+#  DIR              User Direction
+#  VBAS             Base Velocity (EGU/s)
+#  VMAX             Max Velocity (EGU/s), defaults to VELO
+#  ACCL             Seconds to Velocity
+#  BDST             BL Distance (EGU)
+#  BVEL             BL Velocity (EGU/s)
+#  BACC             BL Seconds to Veloc.
+#  DHLM             Dial High Limit
+#  DLLM             Dial Low Limit
+#  HLM              User High Limit
+#  LLM              User Low Limit
+#  HLSV             HW Lim. Violation Svr
+#  INIT             Startup commands
+#  SREV             Steps per Revolution
+#  RRES             Readback Step Size (EGU)
+#  ERES             Encoder Step Size (EGU)
+#  JAR              Jog Acceleration (EGU/s^2)
+#  UEIP             Use Encoder If Present
+#  URIP             Use RDBL If Present
+#  RDBL             Readback Location, set URIP = 1 if you specify this
+#  RLNK             Readback output link
+#  RTRY             Max retry count
+#  DLY              Readback settle time (s)
+#  OFF              User Offset (EGU)
+#  RDBD             Retry Deadband (EGU)
+#  FOFF             Freeze Offset, 0=variable, 1=frozen
+#  ADEL             Alarm monitor deadband (EGU)
+#  NTM              New Target Monitor, only set to 0 for soft motors
+#  FEHIGH           HIGH limit for following error
+#  FEHIHI           HIHI limit for following error
+#  FEHHSV           HIHI alarm severity for following error
+#  FEHSV            HIGH alarm severity for following error
+#  SCALE            Scale factor, if pmacSetAxisScale is used this should be set
+#  HOMEVIS          If 1 then home is visible on the gui
+#  HOMEVISSTR       If HOMEVIS=0, then display this text on the gui instead
+#  name             Object name and gui association name
+#  alh              Set this to alh to add the motor to the alarm handler and send emails, 
+#  gda_name         Name to export this as to GDA
+#  gda_desc         Description to export this as to GDA
+#  SPORT            Delta tau motor controller comms port
+#  HOME             Prefix for autohome instance. Defaults to $(P). If unspecified,
+#  ALLOW_HOMED_SET  Set to a blank to allow this axis to have its homed
+file $(PMAC)/db/dls_pmac_asyn_motor.template
+{
+pattern { P, M, PORT, ADDR, DESC, MRES, VELO, PREC, EGU, TWV, DTYP, DIR, VBAS, VMAX, ACCL, BDST, BVEL, BACC, DHLM, DLLM, HLM, LLM, HLSV, INIT, SREV, RRES, ERES, JAR, UEIP, URIP, RDBL, RLNK, RTRY, DLY, OFF, RDBD, FOFF, ADEL, NTM, FEHIGH, FEHIHI, FEHHSV, FEHSV, SCALE, HOMEVIS, HOMEVISSTR, name, alh, gda_name, gda_desc, SPORT, HOME, PMAC, ALLOW_HOMED_SET }
+    { "TS99I-MO-SERVO-01", ":MOT", "pwbrick", "1", "Top D/S", "0.0001", "0.5", "5", "mm", "0.01", "asynMotor", "0", "0", "$(VELO)", "0.5", "0", "0", "", "15", "2", "", "", "MAJOR", "", "1000", "", "", "", "0", "0", "", "", "0", "0", "0", "", "0", "0", "1", "0", "0", "NO_ALARM", "NO_ALARM", "1", "1", "Use motor summary screen", "servo.11", "None", "", "$(DESC)", "SSHP", "$(P)", "TS99I-MO-PPMAC-01", "#" }
+    { "TS99I-MO-SERVO-02", ":MOT", "pwbrick", "2", "Top U/S", "0.0001", "0.5", "5", "mm", "0.01", "asynMotor", "0", "0", "$(VELO)", "0.5", "0", "0", "", "15", "2", "", "", "MAJOR", "", "1000", "", "", "", "0", "0", "", "", "0", "0", "0", "", "0", "0", "1", "0", "0", "NO_ALARM", "NO_ALARM", "1", "1", "Use motor summary screen", "servo.12", "None", "", "$(DESC)", "SSHP", "$(P)", "TS99I-MO-PPMAC-01", "#" }
+    { "TS99I-MO-SERVO-03", ":MOT", "pwbrick", "3", "Bottom D/S", "0.0001", "0.5", "5", "mm", "0.01", "asynMotor", "0", "0", "$(VELO)", "0.5", "0", "0", "", "15", "2", "", "", "MAJOR", "", "1000", "", "", "", "0", "0", "", "", "0", "0", "0", "", "0", "0", "1", "0", "0", "NO_ALARM", "NO_ALARM", "1", "1", "Use motor summary screen", "servo.13", "None", "", "$(DESC)", "SSHP", "$(P)", "TS99I-MO-PPMAC-01", "#" }
+    { "TS99I-MO-SERVO-04", ":MOT", "pwbrick", "4", "Bottom U/S", "0.0001", "0.5", "5", "mm", "0.01", "asynMotor", "0", "0", "$(VELO)", "0.5", "0", "0", "", "15", "2", "", "", "MAJOR", "", "1000", "", "", "", "0", "0", "", "", "0", "0", "0", "", "0", "0", "1", "0", "0", "NO_ALARM", "NO_ALARM", "1", "1", "Use motor summary screen", "servo.14", "None", "", "$(DESC)", "SSHP", "$(P)", "TS99I-MO-PPMAC-01", "#" }
+}
+
+# Macros:
+#  prefix      ID prefix, e.g. TS03I-MO
+#  suff1       set to zero except for double ID groups like I10 and I06
+#  device      PLC prefix e.g. TS03I-MO-PLC-01
+#  motor_hlm   motor high limit
+#  motor_llm   motor low limit
+#  idname      ID name and description, e.g. ID03I in-vac U23
+#  comptable   one of "CPMU-1", "CPMU-2" or "CPMU-3"
+#  compenable  0 or 1 for Disabled or enabled
+# file $(INSERTIONDEVICE)/db/insertionDevice4V_generic_DT.template
+# {
+# pattern { prefix, suff1, device, motor_hlm, motor_llm, idname, comptable, compenable }
+#     { "TS99I-MO-", "0", "TS99I-MO-PLC-01", "14.01", "2.7", "CK3M-LAB", "0", "0" }
+# }
+
+# Macros:
+#  prefix      Device name prefix ee.g. SR24I-MO-
+#  suff1       ID suffix to distinguish between multiple IDs for the same beamline, usually 0
+#  RISE        set to 'Transition To Non-zero' or 'Every Time'
+#  RDBD        Retry deadband (Default = 0.0003)
+#  MODE        ID control mode: default 'GAP CONTROL'. Set to 'GAP AND PHASE' for 6-axis IDs  (Default = GAP CONTROL)
+#  MPSLINK     Link to MPS ready signal: default '1' for IDs with no MPS interlocks.
+#  GAPLIMCALC  Calculation applied to real motor limits.
+#  GENSUB      Name of gensub record that moves the ID.
+#  name        Template argument
+# file $(INSERTIONDEVICE)/db/IDGapSoftMotor.template
+# {
+# pattern { prefix, suff1, RISE, RDBD, MODE, MPSLINK, GAPLIMCALC, GENSUB, name }
+#     { "TS99I-MO-", "0", "Every Time", "0.003", "GAP CONTROL", "1", "*2", "GAPSET", "gap" }
+# }
+
+# Macros:
+#  prefix       Device name prefix e.g. SR24I-MO-
+#  suff1        ID suffix to distinguish between multiple IDs for the same beamline, usually 0
+#  gap_max_vel  determines allowable velocity range (Default = 1.0)
+#  gap_min_vel  determines allowable velocity range (Default = 0.005)
+#  defaultvel   default velocity when beamline control is disabled (Default = 0.5)
+#  max_vel      max allowable velocity under beamline control (Default = 0.5)
+#  min_vel      min allowable velocity under beamline control (Default = 0.002)
+#  defaultacc   default acceleration when beamline control is disabled (Default = 0.1)
+#  defaultvbas  default base velocity when beamline control is disabled (Default = 0.0167)
+# file $(INSERTIONDEVICE)/db/IDGapVelocityControl4V.template
+# {
+# pattern { prefix, suff1, gap_max_vel, gap_min_vel, defaultvel, max_vel, min_vel, defaultacc, defaultvbas }
+#     { "TS99I-MO-", "0", "1.0", "0.005", "0.5", "0.5", "0.002", "0.1", "0.0167" }
+# }
+
