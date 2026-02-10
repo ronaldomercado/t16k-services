@@ -16,18 +16,9 @@
 
 include:
   # all profiles
-  - services/example-test-01/compose.yml
-  - services/bl01t-ea-cam-01/compose.yml
   - services/ts99i-cs-ioc-03/compose.yaml
   - services/gateway/compose.yml
   - services/pvagw/compose.yml
-
-  # dev and test profiles
-  - services/phoebus/compose.yml
-
-  # deploy profile only
-  - services/epics-opis/compose.yml
-
 
 services:
   # define an init service to set up phoebus and pvagw config files

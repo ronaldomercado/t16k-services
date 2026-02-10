@@ -1,14 +1,7 @@
-# Macros:
-#  name  Template argument
-# file $(INSERTIONDEVICE)/db/ID_simulated-id_gui.template
-# {
-# pattern { name }
-#     { "ts99-cs3-gui" }
-# }
 
 # Macros:
 #  IOC  Device prefix
-file $(DEVIOCSTATS)/db/iocAdminSoft.db
+file iocAdminSoft.db
 {
 pattern { IOC }
     { "TS99I-CS-IOC-02" }
@@ -16,7 +9,7 @@ pattern { IOC }
 
 # Macros:
 #  IOC  Device prefix
-file $(DEVIOCSTATS)/db/iocAdminScanMon.db
+file iocAdminScanMon.db
 {
 pattern { IOC }
     { "TS99I-CS-IOC-02" }
@@ -26,11 +19,11 @@ pattern { IOC }
 #  name      name for gui elements
 #  EDM_FILE  edm screen, defaults to ioc_stats_softdls.edl
 #  IOC       ioc name
-file $(DEVIOCSTATS)/db/iocGui.db
-{
-pattern { name, EDM_FILE, IOC }
-    { "TS99I.CS2", "ioc_stats_softdls.edl", "TS99I-CS-IOC-02" }
-}
+# file iocGui.db
+# {
+# pattern { name, EDM_FILE, IOC }
+#     { "TS99I.CS2", "ioc_stats_softdls.edl", "TS99I-CS-IOC-02" }
+# }
 
 # Macros:
 #  PORT      The asyn port for the pmac controller
@@ -46,7 +39,7 @@ pattern { name, EDM_FILE, IOC }
 #  CSG5      Name for Coordinate System Group 5
 #  CSG6      Name for Coordinate System Group 6
 #  CSG7      Name for Coordinate System Group 7
-file $(PMAC)/db/pmacController.template
+file pmacController.template
 {
 pattern { PORT, P, NAXES, TIMEOUT, FEEDRATE, CSG0, CSG1, CSG2, CSG3, CSG4, CSG5, CSG6, CSG7 }
     { "pwbrick", "TS99I-MO-PPMAC-01", "8", "4", "100", "", "", "", "", "", "", "", "" }
@@ -55,7 +48,7 @@ pattern { PORT, P, NAXES, TIMEOUT, FEEDRATE, CSG0, CSG1, CSG2, CSG3, CSG4, CSG5,
 # Macros:
 #  PORT  The asyn port for the pmac controller
 #  P     PV Prefix
-file $(PMAC)/db/powerPmacStatus.template
+file powerPmacStatus.template
 {
 pattern { PORT, P }
     { "pwbrick", "TS99I-MO-PPMAC-01" }
@@ -65,7 +58,7 @@ pattern { PORT, P }
 #  PMAC  Pmac/Geobrick name
 #  AXIS  Axis number
 #  PORT  Asyn port
-file $(PMAC)/db/pmacStatusAxis.template
+file pmacStatusAxis.template
 {
 pattern { PMAC, AXIS, PORT }
     { "TS99I-MO-PPMAC-01", "1", "pwbrick" }
@@ -128,7 +121,7 @@ pattern { PMAC, AXIS, PORT }
 #  SPORT            Delta tau motor controller comms port
 #  HOME             Prefix for autohome instance. Defaults to $(P). If unspecified,
 #  ALLOW_HOMED_SET  Set to a blank to allow this axis to have its homed
-file $(PMAC)/db/dls_pmac_asyn_motor.template
+file dls_pmac_asyn_motor.template
 {
 pattern { P, M, PORT, ADDR, DESC, MRES, VELO, PREC, EGU, TWV, DTYP, DIR, VBAS, VMAX, ACCL, BDST, BVEL, BACC, DHLM, DLLM, HLM, LLM, HLSV, INIT, SREV, RRES, ERES, JAR, UEIP, URIP, RDBL, RLNK, RTRY, DLY, OFF, RDBD, FOFF, ADEL, NTM, FEHIGH, FEHIHI, FEHHSV, FEHSV, SCALE, HOMEVIS, HOMEVISSTR, name, alh, gda_name, gda_desc, SPORT, HOME, PMAC, ALLOW_HOMED_SET }
     { "TS99I-MO-SERVO-01", ":MOT", "pwbrick", "1", "Top D/S", "0.0001", "0.5", "5", "mm", "0.01", "asynMotor", "0", "0", "$(VELO)", "0.5", "0", "0", "", "15", "2", "", "", "MAJOR", "", "1000", "", "", "", "0", "0", "", "", "0", "0", "0", "", "0", "0", "1", "0", "0", "NO_ALARM", "NO_ALARM", "1", "1", "Use motor summary screen", "servo.11", "None", "", "$(DESC)", "SSHP", "$(P)", "TS99I-MO-PPMAC-01", "#" }
